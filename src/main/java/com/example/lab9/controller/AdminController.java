@@ -8,25 +8,45 @@ import com.example.lab9.service.AdminService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+/**
+ * REST controller for managing {@link Admin} entities and related operations.
+ * Provides endpoints for CRUD operations on admins and managing customers, employees, and orders.
+ */
 @RestController
 @RequestMapping("/lab9/admins")
 @CrossOrigin(origins = "http://localhost:5173")
 public class AdminController {
+
     private final AdminService adminService;
 
+    /**
+     * Constructs an {@link AdminController} with the specified service.
+     *
+     * @param adminService the service for managing admins
+     */
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
 
+    /**
+     * Retrieves all admins.
+     *
+     * @return a {@link ResponseEntity} containing the list of all admins
+     */
     @GetMapping("/getAll")
     public ResponseEntity<List<Admin>> getAllAdmins() {
         List<Admin> admins = adminService.getAllAdmins();
         return ResponseEntity.ok(admins);
     }
 
+    /**
+     * Retrieves an admin by their ID.
+     *
+     * @param id the ID of the admin
+     * @return a {@link ResponseEntity} containing the admin or an error message
+     */
     @GetMapping("/get/{id}")
     public ResponseEntity<?> getAdminById(@PathVariable Long id) {
         try {
@@ -37,12 +57,24 @@ public class AdminController {
         }
     }
 
+    /**
+     * Creates a new admin.
+     *
+     * @param admin the admin to create
+     * @return a {@link ResponseEntity} with a success message and the admin ID
+     */
     @PostMapping("/create")
     public ResponseEntity<String> createAdmin(@RequestBody Admin admin) {
         Admin createdAdmin = adminService.createAdmin(admin);
         return ResponseEntity.ok("Admin created successfully with ID: " + createdAdmin.getId());
     }
 
+    /**
+     * Deletes an admin by their ID.
+     *
+     * @param id the ID of the admin to delete
+     * @return a {@link ResponseEntity} with a success or error message
+     */
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteAdmin(@PathVariable Long id) {
         try {
@@ -53,6 +85,12 @@ public class AdminController {
         }
     }
 
+    /**
+     * Deletes a customer by their ID.
+     *
+     * @param id the ID of the customer to delete
+     * @return a {@link ResponseEntity} with a success or error message
+     */
     @DeleteMapping("/delete/customer/{id}")
     public ResponseEntity<String> deleteCustomer(@PathVariable Long id) {
         try {
@@ -63,6 +101,12 @@ public class AdminController {
         }
     }
 
+    /**
+     * Deletes an employee by their ID.
+     *
+     * @param id the ID of the employee to delete
+     * @return a {@link ResponseEntity} with a success or error message
+     */
     @DeleteMapping("/delete/employee/{id}")
     public ResponseEntity<String> deleteEmployee(@PathVariable Long id) {
         try {
@@ -73,6 +117,12 @@ public class AdminController {
         }
     }
 
+    /**
+     * Deletes an order by its ID.
+     *
+     * @param id the ID of the order to delete
+     * @return a {@link ResponseEntity} with a success or error message
+     */
     @DeleteMapping("/delete/order/{id}")
     public ResponseEntity<String> deleteOrder(@PathVariable Long id) {
         try {
@@ -83,6 +133,12 @@ public class AdminController {
         }
     }
 
+    /**
+     * Creates a new customer.
+     *
+     * @param customer the customer to create
+     * @return a {@link ResponseEntity} with a success message or an error
+     */
     @PostMapping("/create/customer")
     public ResponseEntity<String> createCustomer(@RequestBody Customer customer) {
         try {
@@ -93,6 +149,12 @@ public class AdminController {
         }
     }
 
+    /**
+     * Creates a new employee.
+     *
+     * @param employee the employee to create
+     * @return a {@link ResponseEntity} with a success message or an error
+     */
     @PostMapping("/create/employee")
     public ResponseEntity<String> createEmployee(@RequestBody Employee employee) {
         try {
@@ -103,6 +165,12 @@ public class AdminController {
         }
     }
 
+    /**
+     * Creates a new order.
+     *
+     * @param order the order to create
+     * @return a {@link ResponseEntity} with a success message or an error
+     */
     @PostMapping("/create/order")
     public ResponseEntity<String> createOrder(@RequestBody Order order) {
         try {

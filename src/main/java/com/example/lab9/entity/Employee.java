@@ -2,15 +2,39 @@ package com.example.lab9.entity;
 
 import jakarta.persistence.*;
 
+/**
+ * Represents an employee entity in the system.
+ * Employees have a unique ID, name, surname, company, and email.
+ */
 @Entity
 @Table(name = "employees")
 public class Employee {
+
+    /**
+     * The unique identifier for the employee.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    /**
+     * The name of the employee.
+     */
     private String name;
+
+    /**
+     * The surname of the employee.
+     */
     private String surname;
+
+    /**
+     * The company the employee works for.
+     */
     private String company;
+
+    /**
+     * The email address of the employee.
+     */
     private String email;
 
     public Employee() {

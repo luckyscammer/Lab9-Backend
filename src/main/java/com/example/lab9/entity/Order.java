@@ -1,13 +1,19 @@
 package com.example.lab9.entity;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
+/**
+ * Represents an order entity in the system.
+ * Orders have a unique ID, title, description, category, status, and associated customers.
+ */
 @Entity
 @Table(name = "orders")
 public class Order {
 
+    /**
+     * Enum representing the status of an order.
+     */
     public enum OrderStatus {
         PENDING,
         PROCESSING,
@@ -15,16 +21,37 @@ public class Order {
         CANCELLED
     }
 
+    /**
+     * The unique identifier for the order.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    /**
+     * The title of the order.
+     */
     private String title;
+
+    /**
+     * A description of the order.
+     */
     private String description;
+
+    /**
+     * The category of the order.
+     */
     private String category;
 
+    /**
+     * The current status of the order. Defaults to "PENDING".
+     */
     @Enumerated(EnumType.STRING)
     private OrderStatus status = OrderStatus.PENDING;
 
+    /**
+     * The list of customers associated with the order.
+     */
     @ManyToMany(mappedBy = "orders")
     private List<Customer> customers;
 

@@ -2,13 +2,29 @@ package com.example.lab9.entity;
 
 import jakarta.persistence.*;
 
+/**
+ * Represents an admin entity in the system.
+ * Admins have a unique ID, username, and password.
+ */
 @Entity
 @Table(name = "admins")
 public class Admin {
+
+    /**
+     * The unique identifier for the admin.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    /**
+     * The username of the admin.
+     */
     private String username;
+
+    /**
+     * The password of the admin.
+     */
     private String password;
 
     public Admin() {

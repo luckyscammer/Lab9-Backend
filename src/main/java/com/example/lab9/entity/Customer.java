@@ -1,18 +1,36 @@
 package com.example.lab9.entity;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
+/**
+ * Represents a customer entity in the system.
+ * Customers have a unique ID, username, email, and associated orders.
+ */
 @Entity
 @Table(name = "customers")
 public class Customer {
+
+    /**
+     * The unique identifier for the customer.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    /**
+     * The username of the customer.
+     */
     private String username;
+
+    /**
+     * The email address of the customer.
+     */
     private String email;
 
+    /**
+     * The list of orders associated with the customer.
+     */
     @ManyToMany
     @JoinTable(
             name = "customers_orders",

@@ -6,25 +6,45 @@ import com.example.lab9.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+/**
+ * REST controller for managing {@link Employee} entities and associated operations.
+ * Provides endpoints for CRUD operations on employees and managing orders created or updated by employees.
+ */
 @RestController
 @RequestMapping("/lab9/employees")
 @CrossOrigin(origins = "http://localhost:5173")
 public class EmployeeController {
+
     private final EmployeeService employeeService;
 
+    /**
+     * Constructs an {@link EmployeeController} with the specified service.
+     *
+     * @param employeeService the service for managing employees
+     */
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
+    /**
+     * Retrieves all employees.
+     *
+     * @return a {@link ResponseEntity} containing the list of all employees
+     */
     @GetMapping("/getAll")
     public ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> employees = employeeService.getAllEmployees();
         return ResponseEntity.ok(employees);
     }
 
+    /**
+     * Retrieves an employee by their ID.
+     *
+     * @param id the ID of the employee
+     * @return a {@link ResponseEntity} containing the employee or an error message
+     */
     @GetMapping("/get/{id}")
     public ResponseEntity<?> getEmployeeById(@PathVariable Long id) {
         try {
@@ -35,12 +55,24 @@ public class EmployeeController {
         }
     }
 
+    /**
+     * Creates a new employee.
+     *
+     * @param employee the employee to create
+     * @return a {@link ResponseEntity} with a success message and the employee ID
+     */
     @PostMapping("/create")
     public ResponseEntity<String> createEmployee(@RequestBody Employee employee) {
         Employee createdEmployee = employeeService.createEmployee(employee);
         return ResponseEntity.ok("Employee created successfully with ID: " + createdEmployee.getId());
     }
 
+    /**
+     * Deletes an employee by their ID.
+     *
+     * @param id the ID of the employee to delete
+     * @return a {@link ResponseEntity} with a success or error message
+     */
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteEmployee(@PathVariable Long id) {
         try {
@@ -51,6 +83,12 @@ public class EmployeeController {
         }
     }
 
+    /**
+     * Adds a new order.
+     *
+     * @param order the order to add
+     * @return a {@link ResponseEntity} with a success message or an error
+     */
     @PostMapping("/create/order")
     public ResponseEntity<String> addOrder(@RequestBody Order order) {
         try {
@@ -61,6 +99,13 @@ public class EmployeeController {
         }
     }
 
+    /**
+     * Updates an existing order.
+     *
+     * @param id           the ID of the order to update
+     * @param updatedOrder the updated order data
+     * @return a {@link ResponseEntity} with a success message or an error
+     */
     @PutMapping("/update/order/{id}")
     public ResponseEntity<String> updateOrder(@PathVariable Long id, @RequestBody Order updatedOrder) {
         try {
@@ -71,6 +116,12 @@ public class EmployeeController {
         }
     }
 
+    /**
+     * Confirms an order by setting its status to {@code COMPLETED}.
+     *
+     * @param id the ID of the order to confirm
+     * @return a {@link ResponseEntity} with a success message or an error
+     */
     @PutMapping("/confirm/order/{id}")
     public ResponseEntity<String> confirmOrder(@PathVariable Long id) {
         try {
@@ -81,4 +132,3 @@ public class EmployeeController {
         }
     }
 }
-
